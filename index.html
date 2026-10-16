@@ -9,53 +9,68 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-  :root { --bg:#000; --fg:#fff; --muted:#8a8a8a; --line:#1f1f1f; --accent:#AAFF00; }
+  :root {
+    --bg:#000; --fg:#fff; --gray:#a3a3a3; --muted:#8a8a8a; --line:#1f1f1f; --accent:#AAFF00;
+    --gutter:clamp(20px, 5vw, 64px);
+  }
   * { box-sizing:border-box; margin:0; padding:0; }
   body { background:var(--bg); color:var(--fg); font-family:Manrope, system-ui, sans-serif; -webkit-font-smoothing:antialiased; }
-  main { max-width:760px; margin:0 auto; padding:72px 24px 48px; }
-  /* Header 3 / Label-Overline: SemiBold 600, 12/16, +2.4px, caps */
+  main { max-width:1120px; margin:0 auto; padding:0 var(--gutter); }
+
+  /* Header 3 / Label-Overline: as in the app */
   .label { font-weight:600; font-size:12px; line-height:16px; letter-spacing:2.4px; text-transform:uppercase; color:var(--muted); }
-  /* Header 1: Regular 400, 40/53.2, 0 */
-  h1 { font-weight:400; font-size:40px; line-height:53.2px; letter-spacing:0; margin:16px 0 12px; }
+
+  .hero { min-height:min(78vh, 760px); display:flex; flex-direction:column; justify-content:center; padding:96px 0 72px; }
+  /* Display: web-only scale-up of Header 1 (Regular 400), tight leading */
+  h1 { font-weight:400; font-size:clamp(52px, 9vw, 112px); line-height:1.02; letter-spacing:-0.035em; margin:24px 0 clamp(36px, 4.5vw, 56px); }
   h1 span { color:var(--accent); }
-  /* Header 2: Regular 400, 26/36, 0 */
-  .lead { font-weight:400; font-size:26px; line-height:36px; color:var(--fg); max-width:640px; }
-  section { border-top:1px solid var(--line); padding:32px 0; display:grid; gap:8px; }
-  section:first-of-type { margin-top:48px; }
-  /* Big text: SemiBold 600, 20/28, 0 */
-  h2 { font-weight:600; font-size:20px; line-height:28px; letter-spacing:0; }
-  /* Regular text: Regular 400, 14/20, +0.35px */
-  section p { font-weight:400; font-size:14px; line-height:20px; letter-spacing:.35px; color:#bdbdbd; max-width:560px; }
-  footer { border-top:1px solid var(--line); padding-top:28px; display:flex; flex-wrap:wrap; gap:8px 24px; font-size:14px; line-height:20px; letter-spacing:.35px; color:var(--muted); }
-  /* Regular bold text: Bold 700, 14/20, +0.35px */
+  /* Lead: Header 2 role, sized down so it never competes with the display line */
+  .lead { font-weight:400; font-size:clamp(18px, 1.8vw, 22px); line-height:1.5; color:var(--gray); max-width:30em; }
+
+  .features { display:grid; grid-template-columns:repeat(3, 1fr); gap:48px; border-top:1px solid var(--line); padding:56px 0 96px; }
+  .features article { display:grid; align-content:start; gap:12px; }
+  /* Big text */
+  h2 { font-weight:600; font-size:20px; line-height:28px; }
+  /* Body: Regular text role, bumped to a reading size for web */
+  .features p { font-weight:400; font-size:16px; line-height:24px; letter-spacing:.2px; color:var(--gray); }
+
+  footer { border-top:1px solid var(--line); padding:28px 0 40px; display:flex; flex-wrap:wrap; gap:8px 24px; font-size:14px; line-height:20px; letter-spacing:.35px; color:var(--muted); }
+  /* Regular bold text */
   a { color:var(--accent); text-decoration:none; font-weight:700; }
   a:hover { text-decoration:underline; }
+
+  @media (max-width:800px) {
+    .hero { min-height:auto; padding:72px 0 56px; }
+    .features { grid-template-columns:1fr; gap:0; padding:0 0 48px; border-top:0; }
+    .features article { border-top:1px solid var(--line); padding:32px 0; gap:8px; }
+  }
 </style>
 </head>
 <body>
 <main>
-  <div class="label">Tally: dates log</div>
-  <h1>Your dates.<br><span>Logged.</span></h1>
-  <p class="lead">Tally is a private log for gay men to keep track of dates and partners: who, when, where and how it went. Clean stats instead of messy notes and spreadsheets.</p>
+  <header class="hero">
+    <div class="label">Tally: dates log</div>
+    <h1>Your dates.<br><span>Logged.</span></h1>
+    <p class="lead">Tally is a private log for gay men to keep track of dates and partners: who, when, where and how it went. Clean stats instead of messy notes and spreadsheets.</p>
+  </header>
 
-  <section>
-    <div class="label">Log</div>
-    <h2>Add a date in seconds.</h2>
-    <p>Start typing a name. Tally recognises partners you've met before and fills in the rest: location, roles, connection type and contact. Add protection, your rating and a note. Done.</p>
+  <section class="features">
+    <article>
+      <div class="label">Log</div>
+      <h2>Add a date in seconds.</h2>
+      <p>Start typing a name. Tally recognises partners you've met before and fills in the rest: location, roles, connection type and contact. Add protection, your rating and a note. Done.</p>
+    </article>
+    <article>
+      <div class="label">Stats</div>
+      <h2>See the numbers.</h2>
+      <p>How many people this month, this year or in total. Your role split. Days since your last date. Every partner with the full timeline of your meetings.</p>
+    </article>
+    <article>
+      <div class="label">Privacy</div>
+      <h2>Stays on your phone.</h2>
+      <p>No account. No servers. Everything is stored on your device and can be locked with Face ID or fingerprint. Optional backups stay in your own storage, never with us.</p>
+    </article>
   </section>
-
-  <section>
-    <div class="label">Stats</div>
-    <h2>See the numbers.</h2>
-    <p>How many people this month, this year or in total. Your role split. Days since your last date. Every partner with the full timeline of your meetings.</p>
-  </section>
-
-  <section>
-    <div class="label">Privacy</div>
-    <h2>Stays on your phone.</h2>
-    <p>No account. No servers. Everything is stored on your device and can be locked with Face ID or fingerprint. Optional backups stay in your own storage, never with us.</p>
-  </section>
-
 
   <footer>
     <a href="/privacy">Privacy Policy</a>
